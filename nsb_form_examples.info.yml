@@ -1,0 +1,5 @@
+name: NSB Form Examples
+type: module
+description: Examples of common Drupal Form API patterns.
+package: Custom
+core_version_requirement: ^10 || ^11
