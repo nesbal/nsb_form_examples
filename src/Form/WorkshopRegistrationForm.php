@@ -6,6 +6,7 @@ namespace Drupal\nsb_form_examples\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Render\Markup;
 
 /**
  * Provides a workshop registration form with AJAX behaviors.
@@ -127,17 +128,22 @@ class WorkshopRegistrationForm extends FormBase {
 
     $form['layout']['right']['preview'] = [
       '#type' => 'container',
-      '#attributes' => ['id' => 'invitation-preview'],
+      '#attributes' => [
+        'id' => 'invitation-preview',
+        'class' => ['nsb-invitation-wrapper'],
+      ],
     ];
 
     $form['layout']['right']['preview']['content'] = [
-      '#markup' => $this->buildPreview($form_state),
+      '#markup' => Markup::create($this->buildPreview($form_state)),
     ];
 
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Register'),
     ];
+
+    $form['#attached']['library'][] = 'nsb_form_examples/invitation';
 
     return $form;
   }
@@ -161,20 +167,56 @@ class WorkshopRegistrationForm extends FormBase {
    * Builds invitation preview markup.
    */
   protected function buildPreview(FormStateInterface $form_state): string {
-    $name = $form_state->getValue('name') ?? '';
-    $workshop = $form_state->getValue('workshop') ?? '';
-    $session = $form_state->getValue('session') ?? '';
-    $guests = (int) $form_state->getValue('guests');
-    $message = $form_state->getValue('message') ?? '';
+    $name = $form_state->getValue('name');
 
-    return "<div>
-      <strong>Invitation Preview</strong><br>
-      Name: {$name}<br>
-      Workshop: {$workshop}<br>
-      Session: {$session}<br>
-      Guests: {$guests}<br>
-      Message: {$message}
-    </div>";
+    $workshop_raw = $form_state->getValue('workshop') ?? '';
+    $session_raw = $form_state->getValue('session') ?? '';
+    $guests = (int) $form_state->getValue('guests');
+
+    if (empty($form_state->getValues())) {
+      return "<div style='opacity:0.6; text-align:center;'>Fill the form to preview your invitation</div>";
+    }
+
+    $workshop = $workshop_raw ? strtoupper($workshop_raw) . ' WORKSHOP' : '';
+    $session = $session_raw ? '-' . ucfirst($session_raw) . ' session-' : '';
+
+    return "
+  <div class='nsb-invitation'>
+
+    <div class='nsb-invitation__label'>
+      Invitation
+    </div>
+
+    <div class='nsb-invitation__title'>
+      {$workshop}
+    </div>
+
+    " . ($session ? "
+      <div class='nsb-invitation__session'>
+        {$session}
+      </div>
+    " : "") . "
+
+    <div class='nsb-invitation__subtitle'>
+      This invitation is proudly prepared for
+    </div>
+
+    <div class='nsb-invitation__name'>
+      {$name}
+    </div>
+
+    " . ($guests > 0 ? "
+      <div class='nsb-invitation__guests'>
+        {$guests}
+      </div>
+    " : "") . "
+
+    <div class='nsb-invitation__footer'>
+      We look forward to seeing you
+    </div>
+
+  </div>
+  ";
   }
 
   /**

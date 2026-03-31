@@ -1,0 +1,4 @@
+invitation:
+  css:
+    theme:
+      css/invitation.css: {}
