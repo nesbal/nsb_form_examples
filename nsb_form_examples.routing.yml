@@ -1,0 +1,7 @@
+nsb_form_examples.support_ticket:
+  path: '/support-ticket'
+  defaults:
+    _form: '\Drupal\nsb_form_examples\Form\SupportTicketForm'
+    _title: 'Support Ticket'
+  requirements:
+    _permission: 'access content'
