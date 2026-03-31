@@ -147,14 +147,14 @@ class WorkshopRegistrationForm extends FormBase {
    */
   public function updateSessions(array &$form, FormStateInterface $form_state): array {
     $form_state->setRebuild();
-    return $form['session_wrapper'];
+    return $form['layout']['left']['session_wrapper'];
   }
 
   /**
    * AJAX callback to update preview.
    */
   public function updatePreview(array &$form, FormStateInterface $form_state): array {
-    return $form['preview'];
+    return $form['layout']['right']['preview'];
   }
 
   /**
