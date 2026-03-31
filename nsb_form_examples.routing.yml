@@ -1,7 +1,21 @@
 nsb_form_examples.support_ticket:
-  path: '/support-ticket'
+  path: '/nsb/support-ticket'
   defaults:
     _form: '\Drupal\nsb_form_examples\Form\SupportTicketForm'
     _title: 'Support Ticket'
+  requirements:
+    _permission: 'access content'
+nsb_form_examples.permission_request:
+  path: '/nsb/permission-request'
+  defaults:
+    _form: '\Drupal\nsb_form_examples\Form\PermissionRequestForm'
+    _title: 'Permission request'
+  requirements:
+    _permission: 'access content'
+nsb_form_examples.workshop_registration:
+  path: '/nsb/workshop-registration'
+  defaults:
+    _form: '\Drupal\nsb_form_examples\Form\WorkshopRegistrationForm'
+    _title: 'Workshop registration'
   requirements:
     _permission: 'access content'
