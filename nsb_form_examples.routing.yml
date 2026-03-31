@@ -19,3 +19,17 @@ nsb_form_examples.workshop_registration:
     _title: 'Workshop registration'
   requirements:
     _permission: 'access content'
+nsb_form_examples.settings:
+  path: '/admin/config/nsb-form-examples'
+  defaults:
+    _form: '\Drupal\nsb_form_examples\Form\FormExamplesSettingsForm'
+    _title: 'Form examples settings'
+  requirements:
+    _permission: 'administer site configuration'
+nsb_form_examples.cancel_registration:
+  path: '/nsb/cancel-registration/{name}'
+  defaults:
+    _form: '\Drupal\nsb_form_examples\Form\CancelRegistrationConfirmForm'
+    _title: 'Cancel registration'
+  requirements:
+    _permission: 'access content'

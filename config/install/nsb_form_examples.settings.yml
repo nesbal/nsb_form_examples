@@ -1,0 +1,5 @@
+maintenance_message: 'Site is under maintenance.'
+log_level: 'error'
+api_endpoint: 'https://api.example.com'
+request_timeout: 10
+debug_mode: false
